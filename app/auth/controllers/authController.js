@@ -11,7 +11,7 @@ const authController = {
       // Extract user details from request body
       const { username, email, password } = req.body;
 
-      // Check if user already exists in the database
+      // Check if user already exists in the databases
       let user = await User.findOne({ email });
       if (user) {
         return res.status(400).json({ message: 'User already exists' });
