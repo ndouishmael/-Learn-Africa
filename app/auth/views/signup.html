@@ -3,19 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign Up</title>
-    <link rel="stylesheet" href="styles.css"> <!-- Link to your CSS file -->
+    <title>Sign Up - LearnAfrica</title>
+    <link rel="stylesheet" href="../../public/css/styles.css"> <!-- Adjusted path to CSS file -->
 </head>
 <body>
-    <h1>Sign Up</h1>
-    <form action="/signup" method="POST">
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" required><br><br>
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required><br><br>
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required><br><br>
-        <button type="submit">Sign Up</button>
-    </form>
+    <header>
+        <h1>Welcome to LearnAfrica</h1>
+    </header>
+
+    <main>
+        <section class="signup-section">
+            <h2>Sign Up</h2>
+            <form id="signup-form" action="#" method="POST">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <div class="form-group">
+                    <label for="confirm-password">Confirm Password</label>
+                    <input type="password" id="confirm-password" name="confirm-password" required>
+                </div>
+                <button type="submit">Sign Up</button>
+            </form>
+            <p>Already have an account? <a href="../../views/login.html">Log in</a></p> <!-- Adjusted path to login.html -->
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 LearnAfrica. All rights reserved.</p>
+    </footer>
+
+    <script src="../../public/js/script.js"></script> <!-- Adjusted path to JavaScript file -->
 </body>
 </html>
