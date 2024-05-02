@@ -1,6 +1,8 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -26,56 +28,78 @@ const User = mongoose.model('User', userSchema);
 // Middleware
 app.use(bodyParser.json());
 
-// Routes
+// Define secret key for JWT signing
+const secretKey = 'mySuperSecretKey123';
 
-// Register a new user
-app.post('/register', (req, res) => {
+// User Registration
+app.post('/register', async (req, res) => {
     const { username, email, password } = req.body;
     
-    // Check if user already exists
-    User.findOne({ email })
-        .then(user => {
-            if (user) {
-                return res.status(400).json({ message: 'User already exists' });
-            }
+    try {
+        // Check if user already exists
+        const existingUser = await User.findOne({ email });
+        if (existingUser) {
+            return res.status(400).json({ message: 'User already exists' });
+        }
 
-            // Create new user
-            return User.create({ username, email, password });
-        })
-        .then(newUser => res.status(201).json({ message: 'User registered successfully', user: newUser }))
-        .catch(err => res.status(500).json({ message: 'Internal server error', error: err.message }));
+        // Hash the password
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        // Create new user
+        const newUser = new User({ username, email, password: hashedPassword });
+        await newUser.save();
+
+        res.status(201).json({ message: 'User registered successfully', user: newUser });
+    } catch (error) {
+        res.status(500).json({ message: 'Internal server error', error: error.message });
+    }
 });
 
-// User login
-app.post('/login', (req, res) => {
+// User Login
+app.post('/login', async (req, res) => {
     const { email, password } = req.body;
 
-    // Find user in the database
-    User.findOne({ email, password })
-        .then(user => {
-            if (!user) {
-                return res.status(401).json({ message: 'Invalid credentials' });
-            }
+    try {
+        // Find user in the database
+        const user = await User.findOne({ email });
+        if (!user) {
+            return res.status(401).json({ message: 'Invalid credentials' });
+        }
 
-            return res.status(200).json({ message: 'Login successful', user });
-        })
-        .catch(err => res.status(500).json({ message: 'Internal server error', error: err.message }));
+        // Compare passwords
+        const isPasswordValid = await bcrypt.compare(password, user.password);
+        if (!isPasswordValid) {
+            return res.status(401).json({ message: 'Invalid credentials' });
+        }
+
+        // Generate JWT token
+        const token = jwt.sign({ userId: user._id }, secretKey, { expiresIn: '1h' });
+
+        res.status(200).json({ message: 'Login successful', token });
+    } catch (error) {
+        res.status(500).json({ message: 'Internal server error', error: error.message });
+    }
 });
 
-// Fetch user profile
-app.get('/profile/:username', (req, res) => {
-    const { username } = req.params;
+// Protecting routes example
+app.get('/profile', (req, res) => {
+    // Verify JWT
+    const token = req.headers.authorization;
+    if (!token) {
+        return res.status(401).json({ message: 'Unauthorized' });
+    }
 
-    // Find user in the database
-    User.findOne({ username })
-        .then(user => {
-            if (!user) {
-                return res.status(404).json({ message: 'User not found' });
-            }
+    try {
+        const decoded = jwt.verify(token, secretKey);
+        const userId = decoded.userId;
 
-            return res.status(200).json({ message: 'User profile found', user });
-        })
-        .catch(err => res.status(500).json({ message: 'Internal server error', error: err.message }));
+        // Fetch user profile from the database using userId
+        // Example:
+        // const userProfile = await User.findById(userId);
+        // res.status(200).json({ userProfile });
+    } catch (error) {
+        res.status(401).json({ message: 'Unauthorized' });
+    }
 });
 
 // Start server
