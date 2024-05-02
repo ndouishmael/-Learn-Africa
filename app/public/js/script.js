@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Add a click event listener to the welcome button
     welcomeButton.addEventListener("click", function() {
-        // Perform any actions you want when the welcome button is clicked
+        // Perform any action you want when the welcome button is clicked
         alert("Welcome button clicked!");
     });
 });
