@@ -81,24 +81,67 @@ app.post('/login', async (req, res) => {
     }
 });
 
-// Protecting routes example
-app.get('/profile', (req, res) => {
-    // Verify JWT
-    const token = req.headers.authorization;
-    if (!token) {
-        return res.status(401).json({ message: 'Unauthorized' });
-    }
+// Update Username
+app.put('/settings/username', async (req, res) => {
+    const { username } = req.body;
+
+    // Authenticate user
+    // Example:
+    // const token = req.headers.authorization;
+    // if (!token) {
+    //     return res.status(401).json({ message: 'Unauthorized' });
+    // }
+
+    // Validate username
+    // Example:
+    // if (!username) {
+    //     return res.status(400).json({ message: 'Username is required' });
+    // }
 
     try {
-        const decoded = jwt.verify(token, secretKey);
-        const userId = decoded.userId;
-
-        // Fetch user profile from the database using userId
+        // Update username in the database
         // Example:
-        // const userProfile = await User.findById(userId);
-        // res.status(200).json({ userProfile });
+        // const userId = decoded.userId;
+        // await User.findByIdAndUpdate(userId, { username });
+        
+        res.status(200).json({ message: 'Username updated successfully' });
     } catch (error) {
-        res.status(401).json({ message: 'Unauthorized' });
+        res.status(500).json({ message: 'Internal server error', error: error.message });
+    }
+});
+
+// Update Email
+app.put('/settings/email', async (req, res) => {
+    const { email } = req.body;
+
+    try {
+        // Update email in the database
+        // Example:
+        // const userId = decoded.userId;
+        // await User.findByIdAndUpdate(userId, { email });
+
+        res.status(200).json({ message: 'Email updated successfully' });
+    } catch (error) {
+        res.status(500).json({ message: 'Internal server error', error: error.message });
+    }
+});
+
+// Update Password
+app.put('/settings/password', async (req, res) => {
+    const { password } = req.body;
+
+    try {
+        // Hash the new password
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        // Update password in the database
+        // Example:
+        // const userId = decoded.userId;
+        // await User.findByIdAndUpdate(userId, { password: hashedPassword });
+
+        res.status(200).json({ message: 'Password updated successfully' });
+    } catch (error) {
+        res.status(500).json({ message: 'Internal server error', error: error.message });
     }
 });
 
