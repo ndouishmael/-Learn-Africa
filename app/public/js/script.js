@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Add a click event listener to the welcome button
     welcomeButton.addEventListener("click", function() {
-        // Perform any action you want when the welcome button is clicked
-        alert("Welcome button clicked!");
+        // Redirect to the desired page when the welcome button is clicked
+        window.location.href = "signup.html"; // Replace "signup.html" with the desired page
     });
 });
