@@ -117,3 +117,17 @@ p {
 p a {
     color: #007bff;
 }
+
+/* Course list styles */
+#course-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+#course-list li {
+    margin-bottom: 10px;
+    background-color: #fff;
+    border-radius: 5px;
+    padding: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
