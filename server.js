@@ -42,6 +42,7 @@ app.get('/', (req, res) => {
 
 // User Registration
 app.post('/register', async (req, res) => {
+     console.log(req.body); // Add this line for logging
     const { username, email, password } = req.body;
     
     try {
