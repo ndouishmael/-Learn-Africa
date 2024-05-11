@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const path = require('path');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -30,6 +31,14 @@ app.use(bodyParser.json());
 
 // Define secret key for JWT signing
 const secretKey = 'mySuperSecretKey123';
+
+// Serve static files from the root directory
+app.use(express.static(path.join(__dirname)));
+
+// Route for the root URL ("/") to serve index.html
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'index.html'));
+});
 
 // User Registration
 app.post('/register', async (req, res) => {
@@ -85,64 +94,21 @@ app.post('/login', async (req, res) => {
 app.put('/settings/username', async (req, res) => {
     const { username } = req.body;
 
-    // Authenticate user
-    // Example:
-    // const token = req.headers.authorization;
-    // if (!token) {
-    //     return res.status(401).json({ message: 'Unauthorized' });
-    // }
-
-    // Validate username
-    // Example:
-    // if (!username) {
-    //     return res.status(400).json({ message: 'Username is required' });
-    // }
-
-    try {
-        // Update username in the database
-        // Example:
-        // const userId = decoded.userId;
-        // await User.findByIdAndUpdate(userId, { username });
-        
-        res.status(200).json({ message: 'Username updated successfully' });
-    } catch (error) {
-        res.status(500).json({ message: 'Internal server error', error: error.message });
-    }
+    // Remaining code for updating username endpoint...
 });
 
 // Update Email
 app.put('/settings/email', async (req, res) => {
     const { email } = req.body;
 
-    try {
-        // Update email in the database
-        // Example:
-        // const userId = decoded.userId;
-        // await User.findByIdAndUpdate(userId, { email });
-
-        res.status(200).json({ message: 'Email updated successfully' });
-    } catch (error) {
-        res.status(500).json({ message: 'Internal server error', error: error.message });
-    }
+    // Remaining code for updating email endpoint...
 });
 
 // Update Password
 app.put('/settings/password', async (req, res) => {
     const { password } = req.body;
 
-    try {
-        // Hash the new password
-        const hashedPassword = await bcrypt.hash(password, 10);
-
-        // Update password in the database
-        // Example:
-        // const userId = decoded.userId;
-        // await User.findByIdAndUpdate(userId, { password: hashedPassword });
-
-        res.status(200).json({ message: 'Password updated successfully' });
-    } catch (error) {
-        res.status(500).json({ message: 'Internal server error', error: error.message });
-    }
+    // Remaining code for updating password endpoint...
 });
 
 // Start server
