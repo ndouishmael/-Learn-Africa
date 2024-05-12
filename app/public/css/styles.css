@@ -15,7 +15,7 @@ body {
 
 /* Header styles */
 header {
-    background-color: #007bff;
+    background-color: #007bff; /* Blue header */
     color: #fff;
     padding: 20px;
     text-align: center;
@@ -28,8 +28,10 @@ main {
 
 /* Welcome section styles */
 .welcome-section,
-.settings-section {
-    background-color: #fff;
+.settings-section,
+.course-category,
+.grades-section {
+    background-color: #ffffff; /* White background */
     border-radius: 5px;
     padding: 20px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
@@ -38,38 +40,26 @@ main {
 }
 
 .welcome-section h2,
-.settings-section h2 {
+.settings-section h2,
+.course-category h2,
+.grades-section h2 {
     font-size: 24px;
     margin-bottom: 10px;
 }
 
 .welcome-section p,
-.settings-section p {
+.settings-section p,
+.course-category p,
+.grades-section p {
     font-size: 16px;
     margin-bottom: 20px;
-}
-
-.welcome-section button,
-.settings-section button {
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.welcome-section button:hover,
-.settings-section button:hover {
-    background-color: #0056b3;
 }
 
 /* Form Styles */
 form {
     max-width: 400px;
     margin: 0 auto;
-    background-color: #fff;
+    background-color: #ffffff; /* White background */
     border-radius: 5px;
     padding: 20px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
@@ -95,7 +85,7 @@ input[type="password"] {
 }
 
 button {
-    background-color: #007bff;
+    background-color: #007bff; /* Blue button */
     color: #fff;
     border: none;
     padding: 10px 20px;
@@ -107,27 +97,13 @@ button {
 }
 
 button:hover {
-    background-color: #0056b3;
+    background-color: #0056b3; /* Darker blue on hover */
 }
 
-p {
+/* Footer styles */
+footer {
+    background-color: #007bff; /* Blue footer */
+    color: #fff;
     text-align: center;
-}
-
-p a {
-    color: #007bff;
-}
-
-/* Course list styles */
-#course-list {
-    list-style-type: none;
-    padding: 0;
-}
-
-#course-list li {
-    margin-bottom: 10px;
-    background-color: #fff;
-    border-radius: 5px;
-    padding: 10px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 10px 0;
 }
